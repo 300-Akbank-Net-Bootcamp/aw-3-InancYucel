@@ -26,10 +26,10 @@ public class AccountTransactionCommandHandler :
     public async Task<ApiResponse<AccountTransactionResponse>> Handle(CreateAccountTransactionCommand request, CancellationToken cancellationToken)
     {
         /* Controls */
-        var checkIndentity = await dbContext.Set<AccountTransaction>()
+        var checkIdentity = await dbContext.Set<AccountTransaction>()
             .Where(x => x.AccountId == request.Model.AccountId)
             .FirstOrDefaultAsync(cancellationToken);
-        if (checkIndentity != null)
+        if (checkIdentity != null)
         {
             return new ApiResponse<AccountTransactionResponse>($"{request.Model.AccountId} is used by another AccountTransaction");
         }
@@ -43,18 +43,29 @@ public class AccountTransactionCommandHandler :
 
     public async Task<ApiResponse> Handle(UpdateAccountTransactionCommand request, CancellationToken cancellationToken)
     {
-        var fromdb = await dbContext.Set<AccountTransaction>().Where(x => x.AccountId == request.Id)
+        var fromDb = await dbContext.Set<AccountTransaction>().Where(x => x.AccountId == request.Id)
             .FirstOrDefaultAsync(cancellationToken);
 
-        if (fromdb == null)
+        if (fromDb == null) // Null Controls
         {
             return new ApiResponse("Record not found");
         }
 
-        //Null validation?
-        fromdb.ReferenceNumber = request.Model.ReferenceNumber;
-        fromdb.Description = request.Model.Description;
-        fromdb.TransferType = request.Model.TransferType;
+        //Empty Input Validations
+        if (request.Model.ReferenceNumber != "")
+        {
+            fromDb.ReferenceNumber = request.Model.ReferenceNumber;
+        }
+
+        if (request.Model.Description != "")
+        {
+            fromDb.Description = request.Model.Description;
+        }
+
+        if (request.Model.TransferType != "")
+        {
+            fromDb.TransferType = request.Model.TransferType;
+        }
 
         await dbContext.SaveChangesAsync(cancellationToken);
         return new ApiResponse();
@@ -62,14 +73,14 @@ public class AccountTransactionCommandHandler :
 
       public async Task<ApiResponse> Handle(DeleteAccountTransactionCommand request, CancellationToken cancellationToken)
       {
-          var fromdb = await dbContext.Set<AccountTransaction>().Where(x => x.AccountId == request.Id)
+          var fromDb = await dbContext.Set<AccountTransaction>().Where(x => x.AccountId == request.Id)
               .FirstOrDefaultAsync(cancellationToken);
 
-          if (fromdb == null)
+          if (fromDb == null)
           {
               return new ApiResponse("Record not found");
           }
-          fromdb.IsActive = false; //dbContext.Set<AccountTransaction>().Remove(fromdb); hard delete
+          fromDb.IsActive = false; //dbContext.Set<AccountTransaction>().Remove(fromDb); hard delete
           await dbContext.SaveChangesAsync(cancellationToken);
           return new ApiResponse();
       }

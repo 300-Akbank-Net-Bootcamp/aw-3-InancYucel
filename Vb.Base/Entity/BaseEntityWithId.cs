@@ -5,7 +5,7 @@ public abstract class BaseEntityWithId : BaseEntity
     public int Id { get; set; }
 }
 
-public abstract class BaseEntity
+public abstract class BaseEntity //Main class in every entity
 {
     public int InsertUserId { get; set; }
     public DateTime InsertDate { get; set; }

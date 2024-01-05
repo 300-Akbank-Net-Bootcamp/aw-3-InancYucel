@@ -36,10 +36,10 @@ namespace AkbankBootCampTaskWeek1.Controllers;
         }
         
         // GET: api/Address/CustomerId
-        [HttpGet("GetIdByRoute/{CustomerId}")]
-        public async Task<ApiResponse<List<AddressResponse>>> GetByParameter(int CustomerId)
+        [HttpGet("GetIdByRoute/{customerId}")]
+        public async Task<ApiResponse<List<AddressResponse>>> GetByParameter(int customerId)
         {
-            var operation = new GetAllAddressByParameterQuery(CustomerId);
+            var operation = new GetAllAddressByParameterQuery(customerId);
             var result = await mediator.Send(operation);
             return result;
         }

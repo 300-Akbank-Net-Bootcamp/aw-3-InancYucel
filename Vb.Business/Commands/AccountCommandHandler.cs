@@ -25,11 +25,11 @@ public class AccountCommandHandler :
     
     public async Task<ApiResponse<AccountResponse>> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
     {
-        /* Controls */
-        var checkIndentity = await dbContext.Set<Account>()
+        var checkIdentity = await dbContext.Set<Account>()
             .Where(x => x.CustomerId == request.Model.CustomerId)
             .FirstOrDefaultAsync(cancellationToken);
-        if (checkIndentity != null)
+        
+        if (checkIdentity != null) //Null Controls
         {
             return new ApiResponse<AccountResponse>($"{request.Model.CustomerId} is used by another Account");
         }
@@ -43,17 +43,24 @@ public class AccountCommandHandler :
 
     public async Task<ApiResponse> Handle(UpdateAccountCommand request, CancellationToken cancellationToken)
     {
-        var fromdb = await dbContext.Set<Account>().Where(x => x.CustomerId == request.Id)
+        var fromDb = await dbContext.Set<Account>().Where(x => x.CustomerId == request.Id)
             .FirstOrDefaultAsync(cancellationToken);
 
-        if (fromdb == null)
+        if (fromDb == null) //Null Controls
         {
             return new ApiResponse("Record not found");
         }
 
-        //Null validation?
-        fromdb.Balance = request.Model.Balance;
-        fromdb.Name = request.Model.Name;
+        //Empty Input Validations
+        if (request.Model.Balance !=  0)
+        {
+            fromDb.Balance = request.Model.Balance;
+        }
+
+        if (request.Model.Name != "")
+        {
+            fromDb.Name = request.Model.Name;
+        }
         
         await dbContext.SaveChangesAsync(cancellationToken);
         return new ApiResponse();
@@ -61,14 +68,14 @@ public class AccountCommandHandler :
 
       public async Task<ApiResponse> Handle(DeleteAccountCommand request, CancellationToken cancellationToken)
       {
-          var fromdb = await dbContext.Set<Account>().Where(x => x.CustomerId == request.Id)
+          var fromDb = await dbContext.Set<Account>().Where(x => x.CustomerId == request.Id)
               .FirstOrDefaultAsync(cancellationToken);
 
-          if (fromdb == null)
+          if (fromDb == null)
           {
               return new ApiResponse("Record not found");
           }
-          fromdb.IsActive = false; //dbContext.Set<Account>().Remove(fromdb); hard delete
+          fromDb.IsActive = false; //dbContext.Set<Account>().Remove(fromDb); hard delete
           await dbContext.SaveChangesAsync(cancellationToken);
           return new ApiResponse();
       }

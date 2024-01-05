@@ -18,7 +18,7 @@ public class CreateAccountValidator : AbstractValidator<AccountRequest>
         
         RuleFor(x => x.IBAN)
             .NotEmpty().WithMessage("IBAN cannot be empty")
-            .Must(IsTrIbanStandart).WithMessage("Please enter a valid IBAN number")
+            .MaximumLength(34).WithMessage("Please enter a valid IBAN number")
             .WithName("IBAN");
 
         RuleFor(x => x.Balance)
@@ -35,11 +35,5 @@ public class CreateAccountValidator : AbstractValidator<AccountRequest>
         RuleFor(x => x.Name)
             .MaximumLength(100).WithMessage("Name cannot exceed 100 characters")
             .WithName("Name");
-    }
-    
-    private bool IsTrIbanStandart(string arg)
-    {
-        Regex regex = new Regex(@"/TR[a-zA-Z0-9]{2}\s?([0-9]{4}\s?){1}([0-9]{1})([a-zA-Z0-9]{3}\s?)([a-zA-Z0-9]{4}\s?){3}([a-zA-Z0-9]{2})\s?/");
-        return regex.IsMatch(arg);
     }
 }

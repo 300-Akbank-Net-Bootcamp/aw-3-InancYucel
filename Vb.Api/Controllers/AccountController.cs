@@ -27,47 +27,47 @@ namespace AkbankBootCampTaskWeek1.Controllers;
         }
 
         // GET: api/Account/5
-        [HttpGet("{id}")]
-        public async Task<ApiResponse<AccountResponse>> Get(int id)
+        [HttpGet("{customerId}")]
+        public async Task<ApiResponse<AccountResponse>> Get(int customerId)
         {
-            var operation = new GetAccountByIdQuery(id);
+            var operation = new GetAccountByIdQuery(customerId);
             var result = await mediator.Send(operation);
             return result;
         }
         
         // GET: api/Account/CustomerId
-        [HttpGet("GetIdByRoute/{CustomerId}")]
-        public async Task<ApiResponse<List<AccountResponse>>> GetByParameter(int CustomerId)
+        [HttpGet("GetIdByRoute/{customerId}")]
+        public async Task<ApiResponse<List<AccountResponse>>> GetByParameter(int customerId)
         {
-            var operation = new GetAllAccountByParameterQuery(CustomerId);
+            var operation = new GetAllAccountByParameterQuery(customerId);
             var result = await mediator.Send(operation);
             return result;
         }
         
         // POST: api/Account
         [HttpPost]
-        public async Task<ApiResponse<AccountResponse>> Post([FromBody] AccountRequest Account)
+        public async Task<ApiResponse<AccountResponse>> Post([FromBody] AccountRequest account)
         {
-            var operation = new CreateAccountCommand(Account);
+            var operation = new CreateAccountCommand(account);
             var result = await mediator.Send(operation);
             return result;
         }
 
         // PUT: api/Account/5
-        [HttpPut("{id}")]
-        public async Task<ApiResponse> Put(int id, [FromBody] AccountRequest Account)
+        [HttpPut("{customerId}")]
+        public async Task<ApiResponse> Put(int customerId, [FromBody] AccountRequest account)
         {
-            var operation = new UpdateAccountCommand(id, Account);
+            var operation = new UpdateAccountCommand(customerId, account);
             var result = await mediator.Send(operation);
             return result;
         }
 
 
         // DELETE: api/Account/5
-        [HttpDelete("{id}")]
-        public async Task<ApiResponse> Delete(int id)
+        [HttpDelete("{customerId}")]
+        public async Task<ApiResponse> Delete(int customerId)
         {
-            var operation = new DeleteAccountCommand(id);
+            var operation = new DeleteAccountCommand(customerId);
             var result = await mediator.Send(operation);
             return result;
         }

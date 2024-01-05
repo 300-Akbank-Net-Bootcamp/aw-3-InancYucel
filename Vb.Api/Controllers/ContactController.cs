@@ -27,19 +27,19 @@ namespace AkbankBootCampTaskWeek1.Controllers;
         }
 
         // GET: api/Contact/5
-        [HttpGet("{id}")]
-        public async Task<ApiResponse<ContactResponse>> Get(int id)
+        [HttpGet("{customerId}")]
+        public async Task<ApiResponse<ContactResponse>> Get(int customerId)
         {
-            var operation = new GetContactByIdQuery(id);
+            var operation = new GetContactByIdQuery(customerId);
             var result = await mediator.Send(operation);
             return result;
         }
         
         // GET: api/Contact/CustomerId
-        [HttpGet("GetIdByRoute/{CustomerId}")]
-        public async Task<ApiResponse<List<ContactResponse>>> GetByParameter(int CustomerId)
+        [HttpGet("GetIdByRoute/{customerId}")]
+        public async Task<ApiResponse<List<ContactResponse>>> GetByParameter(int customerId)
         {
-            var operation = new GetAllContactByParameterQuery(CustomerId);
+            var operation = new GetAllContactByParameterQuery(customerId);
             var result = await mediator.Send(operation);
             return result;
         }
@@ -54,20 +54,20 @@ namespace AkbankBootCampTaskWeek1.Controllers;
         }
 
         // PUT: api/Contact/5
-        [HttpPut("{id}")]
-        public async Task<ApiResponse> Put(int id, [FromBody] ContactRequest contact)
+        [HttpPut("{customerId}")]
+        public async Task<ApiResponse> Put(int customerId, [FromBody] ContactRequest contact)
         {
-            var operation = new UpdateContactCommand(id, contact);
+            var operation = new UpdateContactCommand(customerId, contact);
             var result = await mediator.Send(operation);
             return result;
         }
         
         
         // DELETE: api/Contact/5
-        [HttpDelete("{id}")]
-        public async Task<ApiResponse> Delete(int id)
+        [HttpDelete("{customerId}")]
+        public async Task<ApiResponse> Delete(int customerId)
         {
-            var operation = new DeleteContactCommand(id);
+            var operation = new DeleteContactCommand(customerId);
             var result = await mediator.Send(operation);
             return result;
         }

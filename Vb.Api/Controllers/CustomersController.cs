@@ -36,10 +36,10 @@ namespace AkbankBootCampTaskWeek1.Controllers;
         }
         
         // GET: api/Customers/Debreli/Hasan/24604234
-        [HttpGet("GetIdByRoute/{FirstName}/{LastName}/{IdentityNumber}/")]
-        public async Task<ApiResponse<List<CustomerResponse>>> GetByParameter(string FirstName, string LastName, string IdentityNumber)
+        [HttpGet("GetIdByRoute/{firstName}/{lastName}/{identityNumber}/")]
+        public async Task<ApiResponse<List<CustomerResponse>>> GetByParameter(string firstName, string lastName, string identityNumber)
         {
-            var operation = new GetAllCustomerByParameterQuery(FirstName, LastName, IdentityNumber);
+            var operation = new GetAllCustomerByParameterQuery(firstName, lastName, identityNumber);
             var result = await mediator.Send(operation);
             return result;
         }

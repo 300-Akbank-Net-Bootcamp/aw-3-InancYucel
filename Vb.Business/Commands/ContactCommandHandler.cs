@@ -26,10 +26,10 @@ public class ContactCommandHandler :
     public async Task<ApiResponse<ContactResponse>> Handle(CreateContactCommand request, CancellationToken cancellationToken)
     {
         /* Controls */
-        var checkIndentity = await dbContext.Set<Contact>()
+        var checkIdentity = await dbContext.Set<Contact>()
             .Where(x => x.CustomerId == request.Model.CustomerId)
             .FirstOrDefaultAsync(cancellationToken);
-        if (checkIndentity != null)
+        if (checkIdentity != null)
         {
             return new ApiResponse<ContactResponse>($"{request.Model.CustomerId} is used by another Contact");
         }
@@ -43,17 +43,23 @@ public class ContactCommandHandler :
 
     public async Task<ApiResponse> Handle(UpdateContactCommand request, CancellationToken cancellationToken)
     {
-        var fromdb = await dbContext.Set<Contact>().Where(x => x.CustomerId == request.Id)
+        var fromDb = await dbContext.Set<Contact>().Where(x => x.CustomerId == request.Id)
             .FirstOrDefaultAsync(cancellationToken);
 
-        if (fromdb == null)
+        if (fromDb == null) // Null Controls
         {
             return new ApiResponse("Record not found");
         }
 
-        //Null validation?
-        fromdb.ContactType = request.Model.ContactType;
-        fromdb.Information = request.Model.Information;
+        //Empty Input Validations
+        if (request.Model.ContactType != "")
+        {
+            fromDb.ContactType = request.Model.ContactType;
+        }
+        if (request.Model.Information != "")
+        {
+            fromDb.Information = request.Model.Information;
+        }
         
         await dbContext.SaveChangesAsync(cancellationToken);
         return new ApiResponse();
@@ -61,14 +67,14 @@ public class ContactCommandHandler :
 
       public async Task<ApiResponse> Handle(DeleteContactCommand request, CancellationToken cancellationToken)
       {
-          var fromdb = await dbContext.Set<Contact>().Where(x => x.CustomerId == request.Id)
+          var fromDb = await dbContext.Set<Contact>().Where(x => x.CustomerId == request.Id)
               .FirstOrDefaultAsync(cancellationToken);
 
-          if (fromdb == null)
+          if (fromDb == null) // Null Controls
           {
               return new ApiResponse("Record not found");
           }
-          fromdb.IsActive = false; //dbContext.Set<Contact>().Remove(fromdb); hard delete
+          fromDb.IsActive = false; //dbContext.Set<Contact>().Remove(fromDb); hard delete
           await dbContext.SaveChangesAsync(cancellationToken);
           return new ApiResponse();
       }

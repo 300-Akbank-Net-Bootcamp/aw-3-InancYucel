@@ -26,10 +26,11 @@ public class AddressCommandHandler :
     public async Task<ApiResponse<AddressResponse>> Handle(CreateAddressCommand request, CancellationToken cancellationToken)
     {
         /* Controls */
-        var checkIndentity = await dbContext.Set<Address>()
+        var checkIdentity = await dbContext.Set<Address>()
             .Where(x => x.CustomerId == request.Model.CustomerId)
             .FirstOrDefaultAsync(cancellationToken);
-        if (checkIndentity != null)
+        
+        if (checkIdentity != null)
         {
             return new ApiResponse<AddressResponse>($"{request.Model.CustomerId} is used by another Address");
         }
@@ -43,21 +44,39 @@ public class AddressCommandHandler :
 
     public async Task<ApiResponse> Handle(UpdateAddressCommand request, CancellationToken cancellationToken)
     {
-        var fromdb = await dbContext.Set<Address>().Where(x => x.CustomerId == request.Id)
+        var fromDb = await dbContext.Set<Address>().Where(x => x.CustomerId == request.Id)
             .FirstOrDefaultAsync(cancellationToken);
 
-        if (fromdb == null)
+        if (fromDb == null) // Null Controls
         {
             return new ApiResponse("Record not found");
         }
         
-        //Null validation?
-        fromdb.Address1 = request.Model.Address1; 
-        fromdb.Address2 = request.Model.Address2;
-        fromdb.Country = request.Model.Country;
-        fromdb.City = request.Model.City;
-        fromdb.County = request.Model.County;
-        fromdb.PostalCode = request.Model.PostalCode;
+        //Empty Input Validations
+        if (request.Model.Address1 != "")
+        {
+            fromDb.Address1 = request.Model.Address1; 
+        }
+        if (request.Model.Address2 != "")
+        {
+            fromDb.Address2 = request.Model.Address2;
+        }
+        if (request.Model.Country != "")
+        {
+            fromDb.Country = request.Model.Country;
+        }
+        if (request.Model.City != "")
+        {
+            fromDb.City = request.Model.City;
+        }
+        if (request.Model.County != "")
+        {
+            fromDb.County = request.Model.County;
+        }
+        if (request.Model.PostalCode != "")
+        {
+            fromDb.PostalCode = request.Model.PostalCode;
+        }
         
         await dbContext.SaveChangesAsync(cancellationToken);
         return new ApiResponse();
@@ -65,14 +84,14 @@ public class AddressCommandHandler :
     
       public async Task<ApiResponse> Handle(DeleteAddressCommand request, CancellationToken cancellationToken)
       {
-          var fromdb = await dbContext.Set<Address>().Where(x => x.CustomerId == request.Id)
+          var fromDb = await dbContext.Set<Address>().Where(x => x.CustomerId == request.Id)
               .FirstOrDefaultAsync(cancellationToken);
 
-          if (fromdb == null)
+          if (fromDb == null)
           {
               return new ApiResponse("Record not found");
           }
-          fromdb.IsActive = false; //dbContext.Set<Address>().Remove(fromdb); hard delete
+          fromDb.IsActive = false; //dbContext.Set<Address>().Remove(fromDb); hard delete
           await dbContext.SaveChangesAsync(cancellationToken);
           return new ApiResponse();
       }
