@@ -16,7 +16,11 @@
 ## Queries for each Controller
 ![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-InancYucel/assets/48295407/2a466911-82ec-4527-8b76-5accf8a8253b)
 
+## Control to ensure that the randomly generated customer Number is not re-added with the same value.
+![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-InancYucel/assets/48295407/dd09fabc-be74-4d70-97da-ba582aee3bda)
 
+## Another nullable controls
+![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-InancYucel/assets/48295407/374766de-c030-4964-aa75-c3eef8e67406)
 
 
 
