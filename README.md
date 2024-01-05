@@ -22,6 +22,8 @@
 ## Another nullable controls
 ![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-InancYucel/assets/48295407/374766de-c030-4964-aa75-c3eef8e67406)
 
+## Empty Input controls
+![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-InancYucel/assets/48295407/42fd0261-8af0-4419-8ffc-0ca1bcead828)
 
 
 ## Fluent Validations for each Controller
