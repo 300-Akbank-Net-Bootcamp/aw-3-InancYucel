@@ -28,9 +28,9 @@
 
 ## Fluent Validations for each Controller
 ![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-InancYucel/assets/48295407/0506fbbd-1df0-4301-bb45-193877cf6c40)
-## A Sample - CustomerValidator
+### A Sample - CustomerValidator
 ![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-InancYucel/assets/48295407/bd57bed7-775a-4568-a614-7a70579d0249)
-## In Scenario
+### In Scenario
 ![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-InancYucel/assets/48295407/9519b74e-267e-4840-a856-89d8181bad35)
 
 
