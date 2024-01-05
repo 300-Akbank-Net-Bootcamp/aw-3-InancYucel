@@ -10,10 +10,11 @@
 ### A Sample - AccountTransactionController 
 ![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-InancYucel/assets/48295407/56356d1a-9eb7-4012-ba32-c40ab5ecbac7)
 
+## Commands for each Controller
+![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-InancYucel/assets/48295407/630d8f04-9ad0-45eb-978e-72aa9a072310)
 
-
-
-
+## Queries for each Controller
+![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-InancYucel/assets/48295407/2a466911-82ec-4527-8b76-5accf8a8253b)
 
 
 
@@ -23,4 +24,7 @@
 ![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-InancYucel/assets/48295407/0506fbbd-1df0-4301-bb45-193877cf6c40)
 ## A Sample - CustomerValidator
 ![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-InancYucel/assets/48295407/bd57bed7-775a-4568-a614-7a70579d0249)
+## In Scenario
+![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-InancYucel/assets/48295407/9519b74e-267e-4840-a856-89d8181bad35)
+
 
